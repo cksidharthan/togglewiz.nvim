@@ -7,6 +7,7 @@ local defaults = {
 		enabled = "✓",
 		disabled = "✗",
 	},
+	close_on_toggle = false, 
 }
 
 local config = {}
@@ -23,19 +24,20 @@ end
 
 -- Execute a command safely
 local function execute_command(cmd)
-  if type(cmd) == "function" then
-    cmd()
-  elseif cmd:sub(1, 4) == "lua " then
-    local lua_cmd = cmd:sub(5)
-    local fn, err = load(lua_cmd)
-    if fn then
-      fn()
-    else
-      vim.notify("Error executing command: " .. err, vim.log.levels.ERROR)
-    end
-  else
-    vim.cmd(cmd)
-  end
+	if type(cmd) == "function" then
+		cmd()
+	elseif cmd:sub(1, 4) == "lua " then
+		local lua_cmd = cmd:sub(5)
+		-- Using load instead of deprecated loadstring
+		local fn, err = load(lua_cmd)
+		if fn then
+			fn()
+		else
+			vim.notify("Error executing command: " .. err, vim.log.levels.ERROR)
+		end
+	else
+		vim.cmd(cmd)
+	end
 end
 
 -- Toggle a feature by name

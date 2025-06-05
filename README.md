@@ -55,7 +55,8 @@ require('togglewiz').setup({
   icons = {
     enabled = "✓",  -- Icon for enabled features
     disabled = "✗"  -- Icon for disabled features
-  }
+  },
+  close_on_toggle = true
 })
 ```
 
@@ -65,6 +66,7 @@ require('togglewiz').setup({
 | --------- | ----- | ------- | -------------------------------------------------------------------------------------------------- |
 | `toggles` | table | {}      | A table of toggles to be added to the UI. See [Toggles](#toggles) for more details.                |
 | `icons`   | table | {}      | A table of icons to be used for enabled and disabled states. See [Icons](#icons) for more details. |
+| `close_on_toggle` | boolean | true | Whether to close the UI after toggling a feature. Set to false to keep the UI open.                |
 
 ## Toggles
 
@@ -139,28 +141,7 @@ require('togglewiz').setup({
 - Press Enter to toggle the selected feature
 - The Telescope UI will refresh to show the updated state
 
-## API
-### If you want to toggle features programmatically:
-```lua
--- Toggle a feature by name
-require('togglewiz').toggle("Copilot")
-
--- Get current toggles
-local toggles = require('togglewiz').get_toggles()
-
--- Get status icon for a feature
-local icon = require('togglewiz').get_status_icon("Copilot")
-```
-
-## Creating Keymaps
-```lua
--- Add keymaps for common toggles
-vim.keymap.set('n', '<leader>tc', function() require('togglewiz').toggle("Copilot") end, { desc = "Toggle Copilot" })
-vim.keymap.set('n', '<leader>tl', function() require('togglewiz').toggle("LSP") end, { desc = "Toggle LSP" })
-vim.keymap.set('n', '<leader>td', function() require('togglewiz').toggle("Diagnostics") end, { desc = "Toggle Diagnostics" })
-```
-
-## Dependencies
+## C## Dependencies
 - [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 ## Contributing

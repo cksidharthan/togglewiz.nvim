@@ -44,11 +44,13 @@ function M.open()
 					actions.close(prompt_bufnr)
 					togglewiz.toggle(selection.value.name)
 
-					-- Reopen telescope to show updated state
-					-- Small delay to ensure command execution completes
-					vim.defer_fn(function()
-						M.open()
-					end, 100)
+					-- Check if we should reopen Telescope to show updated state
+					if not config.close_on_toggle then
+						-- Small delay to ensure command execution completes
+						vim.defer_fn(function()
+							M.open()
+						end, 100)
+					end
 				end)
 				return true
 			end,
